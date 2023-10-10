@@ -1,0 +1,57 @@
+<div class="conteiner d-flex justify-content-center">
+    <div class="row w-100">
+        <div class="title text-center">
+            <h2>CONSULTA DE INSTRUCTIVOS</h2>           
+        </div>
+
+        <div class="row rounded p-3 border">
+            <form class="mt-1" [formGroup]="formSerch">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="input-group-text">Cliente</label>
+                            <select class="form-select" formControlName="client" (change)="listProducts()">
+                              <option [ngValue]="null" selected>Seleccione un cliente</option>
+                              <option *ngFor="let client of clientsProducts" [ngValue]="client">{{client.nameClient}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="input-group-text">Producto</label>
+                            <select class="form-select" formControlName="product" (change)="listDocuments()">
+                              <option [ngValue]="null" selected>Seleccione un producto</option>
+                              <ng-container *ngIf="clientProduct">
+                                <option *ngFor="let product of clientProduct.products" [ngValue]="product">{{product.nameProduct}}</option>
+                              </ng-container>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    
+            <div *ngIf="productClient" class="mt-3">
+                <table class="table table-hover border">
+                    <tbody>
+                        <tr class="pointer" *ngFor="let document of productClient.documents" (click)="viewDocument(document)">
+                            <td>
+                                <span class="ms-2">
+                                    <i class="far fa-file-pdf me-3"></i>
+                                    {{document.nameDocument}}
+                                </span>
+                            </td>   
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <!--<pdf-viewer [src]="urldocument"
+                [render-text]="true"
+                [original-size]="false"
+                style="width: 400px; height: 500px">
+                </pdf-viewer>-->
+            </div>
+        </div>
+    </div>
+</div>

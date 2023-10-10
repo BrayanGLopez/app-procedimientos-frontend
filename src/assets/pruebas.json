@@ -1,0 +1,19 @@
+{
+	"codigoDocument": "FGG-0010",
+	"product":{
+		"idProduct": 3553,
+		"nameProduct":"Credito libranza 7",
+		"client":{
+			"idClient": 257,
+			"nameClient":"Finandina"
+		}
+	},
+	"type":{
+		"idType": 2,
+		"nameType":"Alma"
+	},
+	"engineer":{
+		"idEngineer": 1,
+		"nameEngineer":"Brayan Lopez"
+	}
+}

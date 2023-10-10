@@ -1,0 +1,23 @@
+<div class="conteiner rounded-3 bg-light d-flex justify-content-center align-items-center shadow border">
+    <div class="row w-100 h-100">
+        <div class="col-12 d-flex flex-column justify-content-center align-items-center">
+            <div class="text-center mb-1">
+                <img src="../../../assets/Logo-Computec.png" alt="logo-computec" class="mb-3">
+                <h4>APP DE PROCEDIMIENTOS</h4>
+            </div>
+            <form class="w-100 p-4" [formGroup]="formlogin" (ngSubmit)="login()">
+                <div class="mb-2">
+                    <label for="username" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" id="username" formControlName="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contaseña</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-info w-100">Ingresar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
