@@ -1,1 +1,48 @@
-<p>update works!</p>
+<div class="conteiner d-flex justify-content-center">
+    <div class="row w-100">
+        <div class="title text-center">
+            <h2>ACTUALIZACIÓN DE INSTRUCTIVOS</h2>           
+        </div>
+
+        <form class="mt-2" [formGroup]="formUpdate">
+            <div class="row border rounded p-3">
+                <div class="col-6">
+                    <div class="input-group">
+                        <label class="input-group-text">Cliente</label>
+                        <select class="form-select" formControlName="client" (change)="listProduct()">
+                          <option [ngValue]="null" selected>Seleccione un cliente</option>
+                          <option *ngFor="let client of clientsProducts" [ngValue]="client">{{client.nameClient}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="input-group">
+                        <label class="input-group-text">Producto</label>
+                        <select class="form-select" formControlName="product" (change)="listDocuments()">
+                          <option [ngValue]="null" selected>Seleccione un producto</option>
+                          <ng-container *ngIf="clientProduct">
+                            <option *ngFor="let product of clientProduct.products" [ngValue]="product">{{product.nameProduct}}</option>
+                          </ng-container>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3" *ngIf="producClient">
+                    <div class="input-group">
+                        <label class="input-group-text">Instructivo</label>
+                        <select class="form-select" formControlName="document" (change)="selectDocument()">
+                          <option [ngValue]="null" selected>Seleccione un instructivo</option>
+                          <option *ngFor="let document of producClient.documents" [ngValue]="document">{{document.nameDocument}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3" *ngIf="document">
+                    <input class="form-control" type="file" accept=".pdf" (change)="updateFile($event)">
+                    <button class="btn btn-info w-100 mt-3" (click)="updateDocument()" [disabled]="!exitsFile">Actualizar</button>   
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

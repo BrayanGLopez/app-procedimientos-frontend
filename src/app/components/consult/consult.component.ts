@@ -16,7 +16,7 @@ export class ConsultComponent implements OnInit{
   clientsProducts!:ClientProduct[];
   clientProduct!:ClientProduct;
   productClient!:ProductClient | null;
-  urldocument!:string;
+  urldocument!:string | null;
 
   formSerch!:FormGroup;
 
@@ -47,16 +47,16 @@ export class ConsultComponent implements OnInit{
   public listProducts():void{
     this.formSerch.get('product')?.setValue(null);
     this.productClient = null;
+    this.urldocument = null;
     this.clientProduct = this.formSerch.get('client')?.value;    
   }
 
   public listDocuments():void{
+    this.urldocument = null;
     this.productClient = this.formSerch.get('product')?.value;
   }
 
   public viewDocument(document:DocumentProduct):void{
-    this.urldocument = `http://localhost:8080/pruebas/document/load/${document.idDocument}`;
+    this.urldocument = `http://localhost:8080/document/load/${document.idDocument}`;
   }
-
-
 }

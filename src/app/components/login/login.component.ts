@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/document/consult']);
       },
       error: (error:HttpErrorResponse) =>{
-        alert(error.status);
+       console.log(error);
       }
     });
   }

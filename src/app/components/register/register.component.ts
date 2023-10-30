@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DocumentCreate } from 'src/app/models/document-create';
 import { Engineer } from 'src/app/models/engineer';
 import { Type } from 'src/app/models/type';
 import { DocumentService } from 'src/app/services/document-service.service';
+import { EngineerService } from 'src/app/services/engineer.service';
+import { TypeService } from 'src/app/services/type.service';
 
 @Component({
   selector: 'app-register',
@@ -17,10 +20,14 @@ export class RegisterComponent implements OnInit{
   engineers!:Engineer[];
   formCreateDocument!:FormGroup;
   formData!:FormData;
+  ultimoCod!:string;
 
   constructor(
     private documentService:DocumentService,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private router:Router,
+    private typeService:TypeService,
+    private engineerService:EngineerService
   ){}
 
   ngOnInit(): void {
@@ -35,18 +42,21 @@ export class RegisterComponent implements OnInit{
       document: [null, Validators.required]
     });
 
-    this.formData = new FormData()
-    this.types = [];
-    this.engineers = [];
+    this.formData = new FormData();
 
-    this.types.push({
-      idType: 1,
-      nameType: "Doc"
+    this.documentService.getEndCodDocument().subscribe({
+      next: response => this.ultimoCod = `Ultimo registrado ${response.cod}`,
+      error: error => console.error( error)
     });
 
-    this.engineers.push({
-      idEngineer: 1,
-      nameEngineer: "Brayan Lopez"
+    this.typeService.getAllTypes().subscribe({
+      next: respose => this.types = respose,
+      error: error => console.log(error) 
+    });
+
+    this.engineerService.getAllEngineers().subscribe({
+      next: response => this.engineers = response,
+      error: error => console.error(error)
     });
   }
 
@@ -86,14 +96,10 @@ export class RegisterComponent implements OnInit{
     this.documentService.createDocument(this.documentCreate).subscribe({
       next: (response) => { 
         this.formCreateDocument.reset();
+
         this.documentService.saveDocument(this.formData).subscribe({
-          next: (response) => {
-            
-            console.log('ok ->', response)
-          },
-          error: (error) => {
-            console.log('error ->', error)
-          }
+          next: response => this.router.navigate(['/consult']),
+          error: error => console.log('error ->', error)
         }); 
       },
       error: (error) => { console.log(error) }

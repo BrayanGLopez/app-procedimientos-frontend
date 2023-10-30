@@ -6,7 +6,7 @@ import { LoginService } from '../services/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard  {
+export class IsLoggedGuard  {
 
   constructor(
     private loginService:LoginService,
@@ -15,11 +15,11 @@ export class LoginGuard  {
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if(this.loginService.getToken()){
+    if(!this.loginService.getToken()){
       return true;
     }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['/document/consult']);
     return false;
   }
   

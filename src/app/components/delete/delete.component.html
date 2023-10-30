@@ -1,1 +1,51 @@
-<p>delete works!</p>
+<div class="conteiner d-flex justify-content-center">
+    <div class="row w-100">
+        <div class="title text-center">
+            <h2>ELIMINACIÓN DE INSTRUCTIVOS</h2>           
+        </div>
+
+        <form class="mt-2" [formGroup]="formDelete">
+            <div class="row border rounded p-3">
+                <div class="col-6">
+                    <div class="input-group">
+                        <label class="input-group-text">Cliente</label>
+                        <select class="form-select" formControlName="client" (change)="listProduct()">
+                          <option [ngValue]="null" selected>Seleccione un cliente</option>
+                          <option *ngFor="let client of clientsProducts" [ngValue]="client">{{client.nameClient}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="input-group">
+                        <label class="input-group-text">Producto</label>
+                        <select class="form-select" formControlName="product" (change)="listDocuments()">
+                          <option [ngValue]="null" selected>Seleccione un producto</option>
+                          <ng-container *ngIf="clientProduct">
+                            <option *ngFor="let product of clientProduct.products" [ngValue]="product">{{product.nameProduct}}</option>
+                          </ng-container>
+                        </select>
+                    </div>
+                </div>
+
+                <div *ngIf="productClient" class="mt-3">
+                    <table class="table table-hover border">
+                        <tbody>
+                            <tr class="pointer" *ngFor="let document of productClient.documents">
+                                <td>
+                                    <span class="ms-2">
+                                        <i class="far fa-file-pdf me-3"></i>
+                                        {{document.nameDocument}}
+                                    </span>
+                                </td> 
+                                <td class="text-center border click" (click)="deleteDocument(document.idDocument)">
+                                    <span><i class="fas fa-trash-alt"></i></span>                                    
+                                </td>  
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

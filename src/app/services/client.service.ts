@@ -8,7 +8,7 @@ import { ClientProduct } from '../models/client-product';
 })
 export class ClientService {
 
-  routeBase:string = "http://localhost:8080/pruebas/client";
+  routeBase:string = "http://localhost:8080/client";
 
   constructor(
     private http:HttpClient
